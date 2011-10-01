@@ -6,7 +6,8 @@
 	* @license Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.(http://creativecommons.org/licenses/by-nc-sa/3.0/)
 	* @copyright Dhruv Baldawa (http://www.dhruvb.com/)
 */	
-
+  // Begin the session
+  session_start();
 // Declaring the variables required for authentication
 	$client_key = '';
 	$client_secret = '';
@@ -14,40 +15,49 @@
 	$redirect_uri = '';
 
 // Check if the authorization code is received or not !
-	if (!isset($_REQUEST['code'])) {
+// Also, if the access token is received or not
+	if (!isset($_REQUEST['code']) && !isset($_SESSION['access_token'])) {
 		// Print the below message, if the code is not received !
 		echo "Please Authorize your account: <br />";
 		echo '<a href = "https://accounts.google.com/o/oauth2/auth?client_id='. $client_key. '&redirect_uri='.$redirect_uri .'&scope=https://www.googleapis.com/auth/plus.me&response_type=code">Click Here to Authorize</a>';
 	}
 	else {
-
-		// Initialize a cURL session
-		$ch = curl_init();
+    if(!isset($_SESSION['access_token'])) {
+		  // Initialize a cURL session
+		  $ch = curl_init();
 		
-		// Set the cURL URL
-		curl_setopt($ch, CURLOPT_URL, "https://accounts.google.com/o/oauth2/token");
+		  // Set the cURL URL
+		  curl_setopt($ch, CURLOPT_URL, "https://accounts.google.com/o/oauth2/token");
 
-		// The HTTP METHOD is set to POST
-		curl_setopt($ch, CURLOPT_POST, TRUE);
+		  // The HTTP METHOD is set to POST
+		  curl_setopt($ch, CURLOPT_POST, TRUE);
 
-		// This option is set to TRUE so that the response
-		// doesnot get printed and is stored directly in 
-		// the variable
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		  // This option is set to TRUE so that the response
+		  // doesnot get printed and is stored directly in 
+		  // the variable
+		  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		
-		// The POST variables which need to be sent along with the HTTP request
-		curl_setopt($ch, CURLOPT_POSTFIELDS, "code=" . $_REQUEST['code'] . "&client_id=" . $client_key . "&client_secret=" . $client_secret . "&redirect_uri='.$redirect_uri.'&grant_type=authorization_code");
+		  // The POST variables which need to be sent along with the HTTP request
+		  curl_setopt($ch, CURLOPT_POSTFIELDS, "code=" . $_REQUEST['code'] . "&client_id=" . $client_key . "&client_secret=" . $client_secret . "&redirect_uri=".$redirect_uri."&grant_type=authorization_code");
 		
-		// Execute the cURL request		
-		$data = curl_exec($ch);
+		  // Execute the cURL request		
+		  $data = curl_exec($ch);
 
-		// Close the cURL connection
-		curl_close($ch);
+		  // Close the cURL connection
+		  curl_close($ch);
 
-		// Decode the JSON request and remove the access token from it
-		$data = json_decode($data);
-		$access_token = $data->access_token;
+		  // Decode the JSON request and remove the access token from it
+		  $data = json_decode($data);
 
+		  $access_token = $data->access_token;
+		  
+		  // Set the session access token
+		  $_SESSION['access_token'] = $data->access_token;
+    }
+    else {
+      // If session access token is set
+      $access_token = $_SESSION['access_token'];
+    }
 		// Initialize another cURL session
 		$ch = curl_init();
 
@@ -56,7 +66,6 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		$data = curl_exec($ch);
 		curl_close($ch);
-
 		// Get the data from the JSON response
 		$data = json_decode($data);
 		
