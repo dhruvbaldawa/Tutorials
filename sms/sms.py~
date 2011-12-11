@@ -86,7 +86,6 @@ print "| to keep away from entering the username and      |"
 print "| password repeatedly, also you can use it for your|"
 print "| applications.                                    |"
 print "| For suggestions: @dhruvbaldawa (twitter)         |"
-print "| Comment lines 80 to 90 to stop this message      |"
 print "----------------------------------------------------"
 
 

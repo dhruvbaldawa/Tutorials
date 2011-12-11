@@ -1,0 +1,21 @@
+Pre-requisites
+The scripts use Python, so you need to have Python on your PC. Python is already installed on all latest Linux distributions. Other OS users can download and install it from www.python.org
+
+These scripts basically use services like way2sms, site2sms to send free SMSes. Currently, work in India only. You can use these scripts to send SMS using your PC/Android phone.
+
+Usage:
+python <filename>
+
+Example:
+python sms.py
+python sms_way2sms.py
+
+File Description
+sms.py - this file uses site2sms account to send SMS, you need to register at site2sms.com first
+sms_way2sms.py - this file uses way2sms account to send SMS, you need to register at way2sms.com to use it
+sms_android.py - you can use your Android phone to send SMSes, also you will need to install Python for Android and SL4A on your Android phone.
+
+For suggestions, you can contact me at @dhruvbaldawa on twitter
+or at http://www.dhruvb.com/blog/
+
+Enjoy !

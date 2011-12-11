@@ -42,13 +42,13 @@ def login(username, password, opener):
   This method takes care of logging onto the website
   '''
   #Logging into the SMS Site
-  url = 'http://www.site2sms.com/auth.asp'
-  url_data = urlencode({'txtCCode':'91',
-                            'userid':username,
-                            'Password':password,
-                            'Submit':'Login'})
+  url = 'http://site1.way2sms.com/Login1.action'
+  url_data = urlencode({'username':username,
+                            'password':password,
+                            'button':'Login'})
   # debug message
   # print url_data
+  
   try:
   	usock = opener.open(url, url_data)
   	# debug message
@@ -59,15 +59,23 @@ def login(username, password, opener):
 
 def sms_send(number, message, opener):
   # SMS sending
-  send_sms_url = 'http://www.site2sms.com/user/send_sms_next.asp'
-  send_sms_data = urlencode({'txtCategory':'40', 
-                                  'txtGroup':'0',
-                                  'txtLeft': len(message) - TOTAL, 
-                                  'txtMessage': message, 
-                                  'txtMobileNo': number,
-                                  'txtUsed':len(message)})
+  send_sms_url = 'http://site1.way2sms.com/quicksms.action  '
+  send_sms_data = urlencode({'Action':'dsf45asvd5', 
+                                  'HiddenAction':'instantsms',
+                                  'MobNo': number, 
+                                  'bulidgpwd': '*******', 
+                                  'bulidguid': 'username',
+                                  'bulidypwd': '*******',
+                                  'bulidyuid': 'username',
+                                  'catnameis': 'Birthday',
+                                  'chkall': 'on',
+                                  'gpwd1': '*******',
+                                  'guid1': 'username',
+                                  'textArea': message,
+                                  'ypwd1': '*******',
+                                  'yuid1': 'username'})
   
-  opener.addheaders = [('Referer','http://www.site2sms.com/user/send_sms.asp')]
+  opener.addheaders = [('Referer','http://site1.way2sms.com/jsp/InstantSMS.jsp')]
   
   print "Message Length: ", len(message)
   
@@ -76,21 +84,6 @@ def sms_send(number, message, opener):
   except IOError:
   	return CONNECTION_ERROR
   return SUCCESS
-
-print "----------------------------------------------------"
-print "| SMS Sender Script                                |"
-print "| Register at site2sms.com, to use this script     |"
-print "| Use your username and password                   |"
-print "| Make changes in this script on line 30 & line 31 |"
-print "| to keep away from entering the username and      |"
-print "| password repeatedly, also you can use it for your|"
-print "| applications.                                    |"
-print "| For suggestions: @dhruvbaldawa (twitter)         |"
-print "| Comment lines 80 to 90 to stop this message      |"
-print "----------------------------------------------------"
-
-
-
 
 # Take the user input
 if username is None: username = raw_input("Enter Username: ")

@@ -85,6 +85,20 @@ def sms_send(number, message, opener):
   	return CONNECTION_ERROR
   return SUCCESS
 
+
+print "----------------------------------------------------"
+print "| SMS Sender Script                                |"
+print "| Register at way2sms.com, to use this script      |"
+print "| Use your username and password                   |"
+print "| Make changes in this script on line 30 & line 31 |"
+print "| to keep away from entering the username and      |"
+print "| password repeatedly, also you can use it for your|"
+print "| applications.                                    |"
+print "| For suggestions: @dhruvbaldawa (twitter)         |"
+print "| Comment lines 89 to 99 to stop this message      |"
+print "----------------------------------------------------"
+
+
 # Take the user input
 if username is None: username = raw_input("Enter Username: ")
 # getpass() method takes shell input, without displaying the password
