@@ -1,0 +1,68 @@
+!!! 5
+%html{:lang => "en"}
+	%head
+		%title Competition Programming and Problem Solving Using Python
+		-# Lets have some metadata here, after sometime
+		%meta{:name => "apple-mobile-web-app-capable", :content => "yes"}
+		%meta{:name => "apple-mobile-web-app-status-bar-style", :content => "black-translucent"}
+		
+		%link{:rel => "stylesheet", :href => "http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic", :type => "text/css"}
+		%link{:rel => "stylesheet", :href => "css/reset.css", :type => "text/css"}
+		%link{:rel => "stylesheet", :href => "css/main.css", :type => "text/css"}
+		%link{:rel => "stylesheet", :href => "css/print.css", :type => "text/css", :media => "print"}
+		%link{:rel => "stylesheet", :href => "lib/css/zenburn.css", :type => "text/css"}
+	%body
+		.reveal
+			#state-background
+			%div.slides
+				%section
+					%h1 Reveal.js
+					%h3.inverted CSS 3D Presentation
+				%section
+					%h2 Test
+					%p Test para
+		%script{:src => "lib/js/head.min.js"}
+		:javascript
+			// Load reveal.js as well as a classList polyfill if needed
+			head.js( !document.body.classList ? 'lib/js/classList.js' : null )
+				.js( 'js/reveal.js', function() {
+
+				// Parse the query string into a key/value object
+				var query = {};
+				location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+					query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+				} );
+
+				// Fires when a slide with data-state=customevent is activated
+				//Reveal.addEventListener( 'customevent', function() {
+				//	console.log( '"customevent" has fired' );
+				//} );
+
+				// Fires each time a new slide is activated
+				Reveal.addEventListener( 'slidechanged', function( event ) {
+					event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				} );
+
+				// Full list of configuration options available here:
+				// https://github.com/hakimel/reveal.js#configuration
+				Reveal.initialize({
+					controls: true,
+					progress: true,
+					history: true,
+					
+					theme: query.theme || 'default', // default/neon/beige
+					transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+				});
+
+			} );
+			
+			// Load highlight.js for syntax highlighting of code samples
+			head.js( 'lib/js/highlight.js', function() { 
+				hljs.initHighlightingOnLoad(); 
+			} );
+
+			// If we're runnning the notes server we need to include some additional JS
+			// TODO Is there a better way to determine if we're running the notes server?
+			if( window.location.host === 'localhost:1947' ) {
+				head.js( 'socket.io/socket.io.js', 'plugin/speakernotes/client.js' );
+			}
