@@ -19,9 +19,9 @@ REDIRECT_URI = ''
 
 # this function generates the Authorization URL for the user
 # The user needs to get the permission from the Google+ page
-def generate_authorization_url(client_key):
+def generate_authorization_url(client_key, redirect_uri):
 	print '== Copy and Paste this URL in your browser =='
-	print 'https://accounts.google.com/o/oauth2/auth?client_id='+client_key+'&redirect_uri='+REDIRECT_URI+'&scope=https://www.googleapis.com/auth/plus.me&response_type=token&xoauth_displayname=Googly'
+	print 'https://accounts.google.com/o/oauth2/auth?client_id='+client_key+'&redirect_uri='+redirect_uri+'&scope=https://www.googleapis.com/auth/plus.me&response_type=token&xoauth_displayname=Googly'
 
 # this function gets the user data from Google+ using GET
 # requests and then decodes the JSON received from Google+
@@ -46,10 +46,11 @@ def say_hello_world(data):
 
 # main method
 if __name__ == '__main__':
-	#client_id = raw_input("Enter your client ID: ")
-	#client_secret = raw_input("Enter your client secret: ")
-	#api_key = raw_input("Enter your API Key: ")	
-	generate_authorization_url(CLIENT_ID)
+	client_id = CLIENT_ID if CLIENT_ID else raw_input("Enter your client ID: ")
+	client_secret = CLIENT_SECRET if CLIENT_SECRET else raw_input("Enter your client secret: ")
+	redirect_uri = REDIRECT_URI if REDIRECT_URI else raw_input("Enter the redirect URI: ")
+	api_key = API_KEY if API_KEY else raw_input("Enter your API Key: ")	
+	generate_authorization_url(client_id, redirect_uri)
 	access_token = raw_input("Enter your access token: ")
 	data = get_user_data(access_token)
 	say_hello_world(data)
