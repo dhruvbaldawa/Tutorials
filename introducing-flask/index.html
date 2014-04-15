@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Introducing Flask</title>
+
+		<meta name="description" content="A flask demo">
+		<meta name="author" content="Dhruv Baldawa">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="../reveal.js/css/reveal.min.css">
+		<link rel="stylesheet" href="../reveal.js/css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="../reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+		<style type="text/css">
+			@import url(http://fonts.googleapis.com/css?family=Rambla:400,700,400italic,700italic);
+
+	        .reveal table th,
+	        .reveal table td {
+	            text-align: left;
+	            border: 2px solid white;
+	            padding: 0.2em 0.5em;
+	        }
+	        .reveal table {
+	            border-collapse: collapse;
+	        }
+	        .reveal code {
+	        	max-height: 600px;
+	        }
+	        ::selection {
+				  color: white;
+				  background: #5EBFFF;
+				  text-shadow: none;
+			}
+	        h3 {
+	            text-align: left;
+	        }
+	        .reveal {
+				font-family: "Rambla", Times, "Times New Roman", serif;
+				font-size: 36px;
+				font-weight: 200;
+				/*letter-spacing: -0.02em;*/
+				color: #eeeeee;
+			}
+	    </style>
+
+	</head>
+
+	<body>
+		<div class="reveal">
+           <div class="slides">
+                <section>
+                    <h1>Introducing Flask</h1>
+                    <p>
+                        <br>
+                    </p>
+                    <p>
+                        <br>
+                    </p>
+                    <p>
+                        <br>
+                    </p>
+                    <p>
+                        <br>
+                    </p>
+                    <p>Dhruv Baldawa (@dhruvbaldawa)</p>
+                </section>
+                <section>
+                    <h2>What is flask ?</h2>
+                    <p style="text-align: left;">
+                        <b>
+                            <span style="text-align: justify;">In layman terms, something which helps you make web sites/services/applications (</span>
+                            <i style="text-align: justify;">think Django, but simpler and smaller</i>
+                            <span style="text-align: justify;">)</span>
+                        </b>
+                    </p>
+                    <p style="text-align: left;">
+                        <b>
+                            <span style="text-align: justify;">
+                                <br>
+                            </span>
+                        </b>
+                    </p>
+                    <div>
+                        <div style="text-align: justify;">
+                            <ul>
+                                <li style="text-align: left;">
+                                    <span style="text-align: justify;">“micro”framework based on <b>
+                                        <a href="http://werkzeug.pocoo.org/">Werkzeug</a>
+                                    </b> and <b>
+                                    <a href="http://jinja.pocoo.org/2/">Jinja2</a>
+                                </b>
+                            </span>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <span style="text-align: justify;">simple and extensible core</span>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <span style="text-align: justify;">gives you the bare minimum to get started with development</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Sneak peek</h2>
+            <pre>
+<code class="python"># hello.py - Your first flask app !
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+
+if __name__ == '__main__':
+    app.run()<br>
+                </code></pre>
+            <div>
+                Yes, thats it !!
+            </div>
+            <pre><code>$ python hello.py
+* Running on http://127.0.0.1:5000/</code></pre>
+        </section>
+        <section>
+            <h1>Warning !</h1>
+            <h2>Code examples ahead</h2>
+            <h3 style="text-align:center;">Feel free to interrupt</h3><br /><br />
+            <p>Tip: look for the <b><i> emphasized part </i></b> in the code</p>
+            <p>Press <b><i> Space </i></b> for next and <b><i> Backspace </i></b> for previous slide.</p>
+            <p>Pressing <b><i> ESC </i></b> does some magic. :-)</p>
+        </section>
+        <section>
+            <section>
+                <p>Just before we start, lets go through some</p>
+                <p>
+                    <br>
+                </p>
+                <h1>HTTP Basics</h1>
+            </section>
+            <section>
+                <h2>Working of HTTP</h2>
+                <img src="http://i.imgur.com/8NQgQ.png">
+                <div>Client sends a <b>REQUEST</b>&nbsp;to the server</div>
+                <div>Servers sends a <b>RESPONSE</b> back to the client</div>
+            </section>
+            <section>
+                <h2>HTTP methods</h2>
+                <div>
+                    <ol>
+                        <li style="text-align: justify;">GET &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-&gt; retrieve (HTTP 1.0)</li>
+                        <li style="text-align: justify;">POST &nbsp; &nbsp; &nbsp; -&gt; submit &nbsp; (HTTP 1.0)</li>
+                        <li style="text-align: justify;">PUT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-&gt; update &nbsp; (HTTP 1.1)</li>
+                        <li style="text-align: justify;">DELETE -&gt; remove &nbsp;(HTTP 1.1)</li>
+                        <li style="text-align: justify;">and some more..</li>
+                    </ol>
+                </div>
+            </section>
+            <section>
+                <h2>HTTP Statuses</h2>
+                <div style="text-align: justify;">
+                    <ol>
+                        <li>2xx - Success</li>
+                        <ol>
+                            <li>200 - OK</li>
+                            <li>201 - Object created</li>
+                        </ol>
+                        <li>3xx - Redirection</li>
+                        <li>4xx - Client Error
+                        </li>
+                        <ol>
+                            <li>400 - Bad request</li>
+                            <li>401 - Unauthorized</li>
+                            <li>403 - Forbidden</li>
+                            <li>404 - Not found</li>
+                        </ol>
+                        <li>5xx - Server Error
+                        <ol>
+                            <li>500 - Internal Server Error</li>
+                        </ol>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+            <section>
+                <h2>Why should i know this ?</h2>
+                <pre><code style="bash">$ python app.py
+127.0.0.1 - - GET / HTTP/1.1 <b><i>200</i></b> -
+127.0.0.1 - - GET /favicon.ico HTTP/1.1 <b><i>404</i></b> -
+127.0.0.1 - - GET / HTTP/1.1" <b><i>404</i></b> -
+127.0.0.1 - - POST / HTTP/1.1 <b><i>400</i></b> -
+</code></pre>
+            </section>
+        </section>
+        <section>
+            <h2>What We will cover ?</h2>
+            <div style="text-align: left;">
+                <br>
+                <ul>
+                    <li>Routing</li>
+                    <li>Requests</li>
+                    <li>Response</li>
+                    <li>Templates</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <section>
+                <h2>Routing</h2>
+                <pre><code><b><i>@app.route('/hello')</i></b> # &lt;- This is routing !
+def hello(): # &lt;- so, this will be called a view
+    ''' execute the following code when the user visits /hello '''
+    return 'Hello World'</code></pre>
+                    <ul>
+                        <li>The &nbsp;<code>route()</code> decorator "binds" a function to a particular URL.</li>
+                    </ul>
+                    <div class="fragment roll-out" style="text-align: center;">
+                        <img src="http://i.imgur.com/1cyOZ.png">
+                        <br>
+                        <div style="text-align: center;">This is what that does !</div>
+                    </div>
+                </section>
+                <section>
+                    <h2>Variable rules</h2>
+                    <pre><code><b><i>@app.route('/user/&lt;username&gt;')
+def show_user_profile(username):</b></i>
+    # show the user profile for that user
+    return 'User %s' % username
+
+<b><i>@app.route('/post/&lt;int:post_id&gt;')
+def show_post(post_id):</b></i>
+    # show the post with the given id, the id is an integer
+    return 'Post %d' % post_id</code></pre>
+                    <div class="fragment roll-out">
+                        <img src="http://i.imgur.com/AIDIg.png">
+                    </div>
+                </section>
+                <section>
+                    <h2>variable rules</h2>
+                    <h3>Converters</h3>
+<div align="center">
+<table>
+<tbody>
+<tr>
+    <td>default</td>
+    <td>string with no slashes allowed</td>
+</tr>
+
+<tr>
+    <td>int</td>
+    <td>accepts integers</td>
+</tr>
+<tr>
+    <td>float</td>
+    <td>like int but accepts floating point numbers</td>
+</tr>
+<tr>
+    <td>path</td>
+    <td>like the default but also accepts slashes</td>
+</tr>
+
+</tbody>
+</table>
+                </section>
+                <section>
+                    <h2>Variable Rules</h2>
+                    <h3>To summarize:</h3>
+                    <div>
+                        <p>
+                        </p>
+                        <ul>
+                            <li>To add variable parts to a URL you can mark these special sections as <code>&lt;variable_name&gt;</code>
+                            </li>
+                        </ul>
+                        <p>
+                        </p>
+                        <p>
+                        </p>
+                        <ul>
+                            <li>Such a part is then passed as <b>keyword argument</b> to your function</li>
+                        </ul>
+                        <p>
+                        </p>
+                        <ul>
+
+
+                            <li>Optionally a converter can be specified by specifying a rule with <code>&lt;converter:variable_name&gt;</code>
+                                <br>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </section>
+                <section>
+                    <h2>Using HTTP methods</h2>
+                    <pre><code>@app.route('/login', <b><i>methods=['GET', 'POST']</i></b>) 
+def login():
+    ''' This function only works for the GET and POST methods '''
+    if request.method == 'POST':
+        # this is executed in case of POST request
+        do_the_login()
+    else:
+        # this is executed in case of GET request
+        show_the_login_form()</code></pre>
+                    <p>
+                        <ul>
+                            <li>The supported methods are <i>GET, POST, PUT, DELETE, HEAD, OPTIONS.</i></li>
+                            <li>If GET is present, HEAD will automatically be added.</li>
+                            <li>OPTIONS is used to check what methods are available for a particular URL.</li>
+                        </ul>
+                    </p>
+                </section>
+                <section>
+                    <h2>URL building</h2>
+                    <pre><code>from flask import Flask, url_for
+app = Flask(__name__)
+
+@app.route('/')
+def index(): pass
+
+@app.route('/login')
+def login(): pass
+
+@app.route('/user/&lt;username&gt;)
+def profile(username): pass
+
+with app.test_request_context(): # lets ignore this for time being<b><i>
+    print url_for('index')                   # prints /
+    print url_for('login')                   # prints /login
+    print url_for('login', next='/')         # prints /login?next=/
+    print url_for('profile', username='Jack')# prints /user/Jack</i></b>
+</code></pre>
+                </section>
+                <section>
+                    <h2>URL Building</h2>
+                    <div style="text-align: justify;">
+                        <h3>To summarize:</h3>
+                        <ul>
+                            <li> <code>url_for()</code> accepts the function name and some keyword arguments, corresponding to the "variable" part of the URL rule.</li><p></p>
+                            <li>Unknown variable parts are appended to the URL as query parameters.</li><p></p>
+                            <li>URL building will handle escaping of special characters and Unicode data transparently for you.</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h1>Surprise !</h1>
+                    <p></p>
+                    <h2>This is not the only way to create views and routes !</h2>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Requests</h2>
+                    <pre><code class="python">from flask import request # The request object</code></pre>
+                    <ul>
+                        <li>As far as the request objects are considered, "its complicated".</li>
+                        <li>Its a global object, which helps you access the request data.</li>
+                        <li>Lets you access the URL, POST/PUT, cookies, file upload data.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Requests</h2>
+                    <h3>Accessing request data</h3>
+                    <table align="center">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Attribute</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>GET</td>
+                                <td><code>request.args</code></tr>
+                            </tr>
+                            <tr>
+                                <td>POST/PUT</td>
+                                <td><code>request.form</code></td>
+                            </tr>
+                            <tr>
+                                <td>Cookie</td>
+                                <td><code>request.cookies</code></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td><code>request.files</code></td>
+                            </tr>
+                            <tr>
+                                <td>GET + POST/PUT</td>
+                                <td><code>request.values</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h2>Requests</h2>
+                    <h3>Accessing GET data</h3>
+                    <pre><code class="python">with app.test_request_context('/login?a=1&a=2&b=3'):
+    <b><i>print request.args.get('a')     # prints '1'
+    print request.args['a']         # prints '1'
+    print request.args.getlist('a') # prints ['1', '2']</i></b></code></pre>
+                    <h3>Accessing POST data</h3>
+                    <pre><code class="python">@app.route('/login', methods=['POST', 'GET'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if valid_login(<b><i>request.form['username'],
+                       request.form['password']</b></i>):
+            return log_the_user_in(request.form['username'])
+        else:
+            return 'Invalid username/password'</code></pre>
+                </section>
+                <section>
+                    <h2>Requests</h2>
+                    <h3>Accessing File data</h3>
+                    <pre><code class="python">@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        <b><i>f = request.files['the_file']
+        f.save('/var/www/uploads/uploaded_file.txt')</i></b>
+...</code></pre>
+                    <h3>Using Cookies</h3>
+                    <pre><code class="python"># Accessing cookies
+def index():
+    <b><i>username = request.cookies.get('username')</i></b>
+
+# Setting cookies
+def index():
+    resp = make_response(render_template(...))
+    <b><i>resp.set_cookie('username', 'the username')</b></i>
+    return resp</code></pre>    
+                </section>
+                <section>
+                    <h2>Requests</h2>
+                    <h3>Sessions</h3>
+                    <pre><code class="python">from flask import <b><i>session</i></b>, request
+def fresh_login():
+    if 'username' in session:
+        # removing session data
+        <b><i>session.pop('username', None)</i></b>
+    else:
+        # set session data
+        <b><i>session['username'] = request.form['username']</i></b>
+ 
+# IMPORTANT! set the secret key. keep this really secret:
+app.secret_key = 'ASDSgjhJhHuoOuY7786689'</code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Response</h2>
+                    <ul>
+                        <li>The view function returns a response object.</li>
+                        <li>Remember this tuple, <code>(response, status, headers)</code></li>
+                        <li><code>make_response()</code> can be used to create response objects</li>
+                        <li><code>make_response()</code> can be used as <code>make_response(body, status, headers)</code></li>
+                        <li>Use <code>render_template()</code> to return HTML templates</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Response</h2>
+                    <h3>Return values to response objects</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Return Type</th>
+                                <th>Conversion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>response</td>
+                                <td>returned as is</td>
+                            </tr>
+                            <tr>
+                                <td>string</td>
+                                <td>returned with status 200, and mimetype text/html</td>
+                            </tr>
+                            <tr>
+                                <td>tuple</td>
+                                <td>taken as form (body, status, headers) with atleast one element</td>
+                            </tr>
+                            <tr>
+                                <td>none</td>
+                                <td>assume a valid WSGI app, and convert it to a response object</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h2>Response</h2>
+                    <pre><code class="python">def not_found(error):
+    return render_template('error.html'), 404 # The template data with status 404 is returned.
+
+def not_found(error):
+    ''' not_found using make_response() '''
+    resp = make_response(render_template('error.html'), 404)
+    resp.headers['X-Something'] = 'A value' # lets not worry about headers
+    return resp</code></pre>
+                </section>
+                <section>
+                    <h2>Response</h2>
+                    <h3>Special g object</h3>
+                    <ul>
+                        <li> This object stores information for one request only and is available from within each function.</li>
+                        <li>Never store such things on other objects because this would not work with threaded environments. </li>
+                        <li>That special <code>g</code> object does some magic behind the scenes to ensure it does the right thing.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Response</h2>
+                    <h3>Special g object</h3>
+                    <pre><code class="python">from flask import g
+@app.route("/beer"):
+def beer():
+    get_beer()
+    return g.beer
+
+def get_beer():
+    if session['user_age'] &lt;= 21:
+        g.beer = 'Fruit Beer'
+    else:
+        g.beer = get_user_ordered_beer()</code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Templates</h2>
+                    <pre><code class="python">@app.route("/welcome/&lt;user&gt;")
+def welcome_user(user):
+    <b><i>return render_template('welcome.html', user=user)</i></b></code></pre>
+<pre><code class="django"># welcome.html
+Welcome, &lt;strong&gt;{{ user }}&lt;/strong&gt;</code></pre>
+                <img src="http://i.imgur.com/g0NQx.png" alt="">
+                </section>
+                <section>
+                    <h2>Templates</h2>
+                    <ul>
+                        <li>Flask uses <a href="http://jinja.pocoo.org/docs/">Jinja2</a> for templating.</li>
+                        <li>You have to use <code>render_template('template')</code> for using templates</li>
+                        <li>Templates are stored in templates/ directory</li>
+                        <li>You can pass data variables as keyword arguments</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Jinja</h2>
+                    <h3>Sneak Peek</h3>
+                    <pre><code class="html">&lt;ul id=&quot;navigation&quot;&gt;
+<b><i>{% for item in navigation %}</i></b>
+    &lt;li&gt;<b><i>&lt;a href=&quot;{{ item.href }}&quot;&gt;{{ item['caption'] }}&lt;/a&gt;</i></b>&lt;/li&gt;
+<b><i>{% endfor %}</i></b>
+&lt;/ul&gt;</code></pre>
+                    <div class="fragment roll-out">
+                        <img src="http://i.imgur.com/CfJVo.png" height="40%">
+                    </div>
+                </section>
+                <section>
+                    <h2>Jinja</h2>
+                    <h3>What happens when you do <code style="text-transform: none;font-size: 0.9em;">foo.bar</code> ?</h3>
+                    <ul>
+                        <li>check if there is an <i>attribute</i> called <code> &nbsp;bar </code> on <code>&nbsp;foo</code>.</li>
+                        <li>if there is not, check if there is an <i>item</i> <code>&nbsp;'bar'</code> in <code>&nbsp;foo</code>.</li>
+                        <li>if there is not, return an undefined object.</li>
+                    </ul><p><br></p>
+                    <div class="fragment roll-out">
+                        <h3>What happens when you do <code style="text-transform: none;font-size: 0.9em;">foo['bar']</code> ?</h3>
+                        <ul>
+                            <li>if there is not, check if there is an <i>item</i> <code>&nbsp;'bar'</code> in <code>&nbsp;foo</code>.</li>
+                            <li>check if there is an <i>attribute</i> called <code> &nbsp;bar </code> on <code>&nbsp;foo</code>.</li>
+                            <li>if there is not, return an undefined object.</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h2>Jinja</h2>
+                    <h3>Some examples</h3>
+                    <pre><code class="django">{% if kenny.sick %}
+    Kenny is sick.
+{% elif kenny.dead %}
+    You killed Kenny!  You bastard!!!
+{% else %}
+    Kenny looks okay --- so far
+{% endif %}</code></pre>
+                <pre><code class="django">{% for item in iterable|sort %}
+    ...
+{% endfor %}</code></pre>
+                </section>
+                <section>
+                    <h2>Jinja</h2>
+                    <h3>Global variables</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>config</td>
+                                <td>g</td>
+                            </tr>
+                            <tr>
+                                <td>request</td>
+                                <td>session</td>
+                            </tr>
+                            <tr>
+                                <td>url_for()</td>
+                                <td>get_flashed_messages()</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                	<h2>We have covered Flask and Jinja basics to get you started.</h2>
+                	<h4>But, there is more to it</h4>
+                	<h4>which can be a part of some other discussion.</h4>
+                </section>
+            </section>
+            <section>
+            	<h1>Thank You</h1>
+            </section>
+            <section>
+                <h2>References</h2>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="http://flask.pocoo.org/docs/">Flask documentation</a>
+                        </li>
+                        <li>
+                            <a href="http://jinja.pocoo.org/docs/">Jinja2 documentation</a>
+                        </li>
+                        <li>
+                            <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP - Wikipedia</a>
+                        </li>
+                        <li>
+                            <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP Status Codes - Wikipedia</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+		</div>
+
+		<script src="../reveal.js/lib/js/head.min.js"></script>
+		<script src="../reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
